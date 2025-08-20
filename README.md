@@ -1,4 +1,4 @@
-# Unison for Ttermux
+# Unison for Termux
 
 [Unison](https://github.com/bcpierce00/unison) is a great synchronization tool, but it's not available in the Termux package manager. To use it, you must build it from source.
 
@@ -6,6 +6,8 @@ This guide shows you how to install Unison on your Android device using Termux.
 In the process, we will also install OCaml, which, to this date, is also not available in the Termux package manager.
 
 Largely based on [Compiler Unison dans Termux](https://lunixite.nappey.org/compiler-unison-termux.html) by [jdn06](https://lunixite.nappey.org/author/jdn06.html).
+
+Learn more about Building packages for Termux [here](https://wiki.termux.com/wiki/Building_packages).
 
 ## Prerequisites
 
@@ -72,15 +74,15 @@ cd
 rm -rf $HOME/tmp/ocaml-${OCAML_VERSION} $HOME/tmp/unison-${UNISON_VERSION} $HOME/tmp/*.tar.gz
 ```
 
-## Uninstallation
+## Uninstall
 
-Uninstall OCaml:
+OCaml:
 ```sh
 rm -f $PREFIX/lib/ocaml*
 rm -rf $PREFIX/lib/ocaml $PREFIX/share/man/man1/ocaml*
 ```
 
-Uninstall Unison:
+Unison:
 ```sh
 rm -f $PREFIX/bin/unison* $PREFIX/share/man/man1/unison.1
 ```
