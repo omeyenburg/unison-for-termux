@@ -40,6 +40,12 @@ make world
 make install
 ```
 
+Check whether ocaml was correctly installed:
+```sh
+ocaml --version
+ocamlc --version
+```
+
 ## Building Unison
 
 Now that OCaml is installed, you can compile Unison. This guide uses Unison 2.53.7.
@@ -54,7 +60,8 @@ tar xzf "$HOME/tmp/unison.tar.gz" -C "$HOME/tmp"
 cd "$HOME/tmp/unison-${UNISON_VERSION}"
 
 # Build and install Unison
-# NATIVE=false tells the build system to use the OCaml bytecode compiler.
+# NATIVE=false tells the build system to use the OCaml bytecode compiler,
+# which makes large syncs slower but is necessary for Termux.
 make NATIVE=false
 make NATIVE=false install
 ```
@@ -65,6 +72,13 @@ You can test it by checking the version:
 ```sh
 unison -version
 ```
+
+## Usage
+
+If you encounter errors while running unison, try to use the options `-ignorelocks` and possibly `-perms=0` (or `-fat`, which includes `-perms=0`) as well.
+Though both have downsides: With `-ignorelocks`, you must be careful not to start multiple sync jobs at once.
+When using `-perms=0`, no permissions will be synchronized. More information in the [Unison Manual](https://man.archlinux.org/man/unison.1.en).
+On a rooted device, there are ways to use Unison without these flags.
 
 ## Cleanup
 
