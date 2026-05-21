@@ -7,8 +7,6 @@ In the process, we will also install OCaml, which, to this date, is also not ava
 
 Largely based on [Compiler Unison dans Termux](https://lunixite.nappey.org/compiler-unison-termux.html) by [jdn06](https://lunixite.nappey.org/author/jdn06.html).
 
-Learn more about Building packages for Termux [here](https://wiki.termux.com/wiki/Building_packages).
-
 ## Prerequisites
 
 Install required build tools:
@@ -17,13 +15,28 @@ pkg update -y
 pkg install -y binutils build-essential clang make git curl unzip libandroid-shmem
 ```
 
+If running in a simulator (such as waydroid), you might need `ndk-multilib` as well.
+
 ## Building OCaml
 
-Unison is built using OCaml, so we will have to install it first.
-This guide uses OCaml 5.3.0, but other versions should also work. This process compiles OCaml specifically for the Android architecture.
+Unison is built using OCaml, so we will have to install it first. This process compiles OCaml specifically for the Android architecture.
+
+Notes:
+- Unison requires Ocaml 4.08 at minimum.
+  - 4.13.0 to 5.3.0 (should) work
+  - 5.4.0 and 5.4.1 do not work
+  - 5.5.0-beta1 (latest) works
+- The android api version must be at least 28. ([more](https://github.com/omeyenburg/unison-for-termux/issues/1#issue-3927661941))
+- Higher android api versions seem to have issues on aarch64 devices. ([more](https://github.com/omeyenburg/unison-for-termux/issues/1#issuecomment-4428109622))
+
+Credits:
+- [terminatorbs](https://github.com/terminatorbs): noted issues with api version and missing dependency
+- [engdyn](https://github.com/engdyn): noted issues with api versions above 28 and problematic ocaml versions
 
 ```sh
 OCAML_VERSION=5.3.0
+TARGET="$(uname -m)-unknown-linux-android"
+API=28
 
 mkdir -p $HOME/tmp
 curl -L https://github.com/ocaml/ocaml/releases/download/${OCAML_VERSION}/ocaml-${OCAML_VERSION}.tar.gz \
@@ -33,7 +46,7 @@ cd "$HOME/tmp/ocaml-${OCAML_VERSION}"
 
 # Configure OCaml for Termux/Android
 # Termux provides the $PREFIX variable.
-./configure --prefix=$PREFIX --disable-warn-error --without-afl LDFLAGS="-landroid-shmem"
+./configure --prefix=$PREFIX --disable-warn-error --without-afl CC="clang --target=${TARGET}${API}" LDFLAGS="-landroid-shmem"
 
 # Build and install OCaml
 make world
@@ -70,7 +83,7 @@ make NATIVE=false
 make NATIVE=false install
 ```
 
-Unison should be installed now! 🎉
+Unison should be installed now!
 
 You can test it by checking the version:
 ```sh
