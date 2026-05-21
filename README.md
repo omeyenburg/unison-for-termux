@@ -59,10 +59,6 @@ ocaml --version
 ocamlc --version
 ```
 
-If you run into issues:
-- "Undeclared function 'getentropy'": See [this solution](https://github.com/omeyenburg/unison-for-termux/issues/1) by [terminatorbs](https://github.com/terminatorbs).  
-  Add a flag like `--target=aarch64-unknown-linux-android28` to `./configure` where 28 is the android api version you want to target, must be at least 28.
-
 ## Building Unison
 
 Now that OCaml is installed, you can compile Unison. This guide uses Unison 2.53.7.
