@@ -39,7 +39,7 @@ TARGET="$(uname -m)-unknown-linux-android"
 API=28
 
 mkdir -p $HOME/tmp
-curl -L https://github.com/ocaml/ocaml/releases/download/${OCAML_VERSION}/ocaml-${OCAML_VERSION}.tar.gz \
+curl -L https://github.com/ocaml/ocaml/archive/refs/tags/${OCAML_VERSION}.tar.gz \
   -o "$HOME/tmp/ocaml.tar.gz"
 tar xzf "$HOME/tmp/ocaml.tar.gz" -C "$HOME/tmp"
 cd "$HOME/tmp/ocaml-${OCAML_VERSION}"
@@ -71,7 +71,7 @@ Now that OCaml is installed, you can compile Unison. This guide uses Unison 2.53
 UNISON_VERSION=2.53.7
 
 mkdir -p $HOME/tmp
-curl -L https://github.com/bcpierce00/unison/archive/v${UNISON_VERSION}.tar.gz \
+curl -L https://github.com/bcpierce00/unison/archive/refs/tags/v${UNISON_VERSION}.tar.gz \
   -o "$HOME/tmp/unison.tar.gz"
 tar xzf "$HOME/tmp/unison.tar.gz" -C "$HOME/tmp"
 cd "$HOME/tmp/unison-${UNISON_VERSION}"
